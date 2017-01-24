@@ -1,4 +1,13 @@
 <div class="jumbotron">
     <h1 class="text-center">Photopic</h1>
 </div>
-<foto *ngFor="let foto of fotos" url="{{foto.url}}" titulo="{{foto.titulo}}"></foto>
+
+<div class="container">
+
+    <div class="row">
+        <painel *ngFor="let foto of fotos" titulo="{{foto.titulo}}" class="col-md-2">
+            <foto titulo="{{foto.titulo}}" url="{{foto.url}}">
+            </foto>
+        </painel>
+    </div>
+</div>
