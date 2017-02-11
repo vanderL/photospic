@@ -9,4 +9,6 @@ export class FotoComponent {
 
     @Input() titulo;
     @Input() url;
+    descricao: string;
+
 }
