@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FotoComponent } from '../foto/foto.component';
-import { Http, Headers } from '@angular/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FotoService } from '../foto/foto.service';
 
 
 @Component({
@@ -13,11 +13,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class CadastroComponent {
 
     foto: FotoComponent = new FotoComponent();
-    http: Http;
+    service: FotoService;
     meuForm: FormGroup;
 
-    constructor(http: Http, fbuilder: FormBuilder){
-      this.http = http;
+    constructor(service: FotoService, fbuilder: FormBuilder){
+      this.service = service;
       this.meuForm = fbuilder.group({
           titulo: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
           url: ['', Validators.required],
@@ -29,14 +29,20 @@ export class CadastroComponent {
         event.preventDefault();
         console.log(this.foto);
 
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
 
+/*
         this.http.post('v1/fotos', JSON.stringify(this.foto), { headers: headers })
             .subscribe( () => {
                 this.foto = new FotoComponent();
                 console.log('Foto salva');
-            }, erro => console.log(erro));
+            }, erro => console.log(erro));*/
+        this.service.cadastrar(this.foto)
+            .subscribe(() => {
+                this.foto = new FotoComponent();
+                console.log('Foto salva');
+            }, erro => {
+                console.log(erro);
+            });
     }
 
 }
